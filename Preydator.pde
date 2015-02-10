@@ -4,8 +4,8 @@ ArrayList<Vehicle> prey;
 boolean debug = true;
 PImage buffer;
 // Setup parameters
-int numPredators = 500;
-int numPrey = 500;
+int numPredators = 1;
+int numPrey = 1;
 int backoffSteps = 25;
 float maxRotation = 2.8;
 
@@ -21,7 +21,7 @@ void setup() {
     prey.add(new Vehicle(width/2, height/2, 'g'));
   }
     
- buffer = loadImage("Devide_Texture.png");
+ buffer = loadImage("Devide_Texture_2.png");
 }
 
 void draw() {
