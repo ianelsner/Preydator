@@ -79,13 +79,15 @@ class Vehicle {
 
   void wander() {
     float wanderR = 25;         // Radius for our "wander circle"
-    float wanderD = 80;         // Distance for our "wander circle"
+    float wanderD = 40;         // Distance for our "wander circle"
     float change = 0.3;
 
 
     // 90-degree turn velocity if colliding with wall or avoiding after collision
     if (state == state.collision) {
+      //velocity.mult(0.9);
       velocity.rotate(turnDirection * maxRotation / backoffSteps);
+      wandertheta = 0;
     } else if (state == state.wander) {
       wandertheta += random(-change,change);     // Randomly change wander theta
     }
@@ -170,13 +172,22 @@ class Vehicle {
     fill(255,0,0);
     ellipse(lerp(location.x, targeto.x, .5), lerp(location.y, targeto.y, .5), 10,10);
     color buffering = buffer.get(int(targeto.x),int(targeto.y));
+    color buffering4 = buffer.get(int(location.x),int(location.y));
     color buffering2 = buffer.get(int(lerp(location.x, targeto.x, .5)),int(lerp(location.y, targeto.y, .5)));
+    
+    //rect(int(targeto.x)-25,int(targeto.y)-25, 50, 50);
+    PImage buffering3 = buffer.get(int(targeto.x)-25,int(targeto.y)-25, 50, 50);
+    
+    
+  // buffering3.resize(1,1);
+//    buffering3.filter(THRESHOLD, 0.999);
+  //  image(buffering3, 100, 100);
     
    
  //color buffering2 = buffer.get(int(lerp(location.x, targeto.x, .5)),int(lerp(location.y, targeto.y, .5)));
 
     // Make state decision based on color and current state
-    if (state != state.collision && buffering == color(0,0,0) || buffering2 == color(0,0,0)){
+    if (state != state.collision && buffering == color(0,0,0)){
       state = state.collision;
       
       // Decide if he will resolve collision turning C or CC.
@@ -186,11 +197,25 @@ class Vehicle {
       }
       
       avoidCount = backoffSteps;
-    } else if (state == state.collision && avoidCount > 0 ) {
+    } 
+    
+    else if (state == state.collision && avoidCount > 0 ) {
       avoidCount--;
-    } else if (state == state.collision && avoidCount == 0) {
+    } 
+    
+    else if (state == state.collision && avoidCount < 1 && buffering4 == color(255,255,255)) {
       state = state.wander;
     }
+    
+    
+    
+  //  if(state == state.collision && buffering == color(0,0,0)){
+   //  avoidCount = 10;
+      
+      
+      
+  //    rect(10,10,10,10);
+  // }
     //rect(255,10, 10,10);
     
   }

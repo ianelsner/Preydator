@@ -4,10 +4,10 @@ ArrayList<Vehicle> prey;
 boolean debug = true;
 PImage buffer;
 // Setup parameters
-int numPredators = 1;
-int numPrey = 1;
+int numPredators = 10;
+int numPrey = 10;
 int backoffSteps = 25;
-float maxRotation = 2.8;
+float maxRotation = radians(180);
 
 void setup() {
  
