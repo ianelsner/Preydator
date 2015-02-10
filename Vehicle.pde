@@ -170,16 +170,13 @@ class Vehicle {
     fill(255,0,0);
     ellipse(lerp(location.x, targeto.x, .5), lerp(location.y, targeto.y, .5), 10,10);
     color buffering = buffer.get(int(targeto.x),int(targeto.y));
+    color buffering2 = buffer.get(int(lerp(location.x, targeto.x, .5)),int(lerp(location.y, targeto.y, .5)));
     
-    PImage testimage = buffer.get(int(targeto.x),int(targeto.y), 10, 10);
-    rect(int(targeto.x)-5,int(targeto.y)-5, 10, 10);
-    testimage.resize(1,1);
-    image(testimage, 10,10);
-    color buffering2 = testimage.get(1,1));
+   
  //color buffering2 = buffer.get(int(lerp(location.x, targeto.x, .5)),int(lerp(location.y, targeto.y, .5)));
 
     // Make state decision based on color and current state
-    if (state != state.collision && buffering2 != color(255,255,255)){
+    if (state != state.collision && buffering == color(0,0,0) || buffering2 == color(0,0,0)){
       state = state.collision;
       
       // Decide if he will resolve collision turning C or CC.
