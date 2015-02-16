@@ -2,7 +2,9 @@
 ArrayList<Vehicle> predators;
 ArrayList<Vehicle> prey;
 boolean debug = true;
-PImage buffer;
+PGraphics buffer;
+PImage bufferimage;
+
 // Setup parameters
 int numPredators = 10;
 int numPrey = 10;
@@ -12,7 +14,14 @@ float maxRotation = radians(180);
 void setup() {
  
   size(640,360);
+  
+   buffer = createGraphics(width, height);
   predators = new ArrayList<Vehicle>();
+  
+  
+  bufferimage = loadImage("Devide_Texture_2.png");
+  
+  
   for (int i = 0 ; i < numPredators ; i++) {
     predators.add(new Vehicle(width/2, height/2, 'r'));
   }
@@ -20,13 +29,23 @@ void setup() {
   for (int i = 0 ; i < numPrey ; i++) {
     prey.add(new Vehicle(width/2, height/2, 'g'));
   }
-    
- buffer = loadImage("Devide_Texture_2.png");
+ 
 }
 
 void draw() {
-  background(buffer);
+   
+
   
+ 
+   buffer.beginDraw();
+  buffer.background(bufferimage);
+   buffer.fill(0,0,0);
+   buffer.ellipse(mouseX, mouseY, 500,500);
+   
+   buffer.endDraw();
+   
+   
+    background(buffer);
   // Display, update, and check obstacle of each predator and prey
   for (int i = 0; i < predators.size() ; i++) {
     predators.get(i).wander();
