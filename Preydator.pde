@@ -6,46 +6,40 @@ PGraphics buffer;
 PImage bufferimage;
 
 // Setup parameters
-int numPredators = 10;
-int numPrey = 10;
-int backoffSteps = 25;
+int numPredators = 100;
+int numPrey = 100;
+int trailPts = 50;
 float maxRotation = radians(180);
 
 void setup() {
  
+  // Set up map
   size(640,360);
-  
-   buffer = createGraphics(width, height);
-  predators = new ArrayList<Vehicle>();
-  
-  
+  buffer = createGraphics(width, height);
   bufferimage = loadImage("Devide_Texture_2.png");
   
-  
+  // Initialize all of the vehicles
+  predators = new ArrayList<Vehicle>();
   for (int i = 0 ; i < numPredators ; i++) {
-    predators.add(new Vehicle(width/2, height/2, 'r'));
+    predators.add(new Vehicle(width/4, height/2, 'r'));
   }
   prey = new ArrayList<Vehicle>();
   for (int i = 0 ; i < numPrey ; i++) {
-    prey.add(new Vehicle(width/2, height/2, 'g'));
+    prey.add(new Vehicle(width*3/4, height/2, 'g'));
   }
  
 }
 
 void draw() {
    
-
-  
- 
-   buffer.beginDraw();
+  // Prepare the map
+  buffer.beginDraw();
   buffer.background(bufferimage);
-   buffer.fill(0,0,0);
-   buffer.ellipse(mouseX, mouseY, 500,500);
-   
-   buffer.endDraw();
-   
-   
-    background(buffer);
+  buffer.fill(0,0,0);
+  buffer.ellipse(mouseX, mouseY, 50,50);
+  buffer.endDraw();
+  background(buffer);
+  
   // Display, update, and check obstacle of each predator and prey
   for (int i = 0; i < predators.size() ; i++) {
     predators.get(i).wander();
