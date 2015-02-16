@@ -157,8 +157,18 @@ class Vehicle {
     desired.mult(maxspeed);
     // Steering = Desired minus Velocity
     PVector steer = PVector.sub(desired,velocity);
-    steer.limit(maxforce);  // Limit to maximum steering force
-
+    
+    if (state == state.collision){
+      steer.limit(100);
+    }
+    else if (state == state.wander){
+    steer.limit(maxforce); 
+    }
+  //  steer.limit(maxforce);  // Limit to maximum steering force
+    
+    
+// steer.limit(maxforce);
+     
     applyForce(steer);
   }
 
